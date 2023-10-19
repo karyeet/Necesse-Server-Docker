@@ -1,3 +1,5 @@
+ARG JAVAPLATFORM
+
 FROM --platform=$JAVAPLATFORM ubuntu:22.04
 
 LABEL maintainer="https://github.com/karyeet"
