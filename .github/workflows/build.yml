@@ -35,19 +35,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Fetch necesse server amd64
-        if: ${{ matrix.platform }} == 'amd64'
+      - name: Fetch necesse server
         run: |
           wget https://necessegame.com/wp-content/uploads/2023/08/necesse-server-linux64-0-22-1-12080883.zip
           mv necesse-server-linux64-0-22-1-12080883.zip necesse-server.zip
           unzip necesse-server.zip
         
-      - name: Fetch jre and necesse server arm64
+      - name: Fetch jre and replace runtime for arm64
         if: ${{ matrix.platform }} == 'arm64'
         run: |
-          wget https://necessegame.com/wp-content/uploads/2023/08/necesse-server-linux64-0-22-1-12080883.zip
-          mv necesse-server-linux64-0-22-1-12080883.zip necesse-server.zip
-          unzip necesse-server.zip
           rm -r necesse-server/jre/*
           wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1%2B1/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.8.1_1.tar.gz
           tar -xf OpenJDK17U-jre_aarch64_linux_hotspot_17.0.8.1_1.tar.gz
