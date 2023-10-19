@@ -42,7 +42,7 @@ jobs:
           unzip necesse-server.zip
         
       - name: Fetch jre and replace runtime for arm64
-        if: ${{ matrix.platform }} == 'arm64'
+        if: matrix.platform == 'arm64'
         run: |
           rm -r necesse-server/jre/*
           wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1%2B1/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.8.1_1.tar.gz
