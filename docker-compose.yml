@@ -8,6 +8,8 @@ services:
   necesse-server:
     container_name: necesse_server
     image: karyeet/necesse-server-docker:main
+    stdin_open: true
+    tty: true
     ports:
       - 14159:14159/udp
     volumes:
