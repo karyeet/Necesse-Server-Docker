@@ -1,14 +1,14 @@
 #!/bin/bash
 
 
-CONFIG_FILE=~/.config/Necesse/cfg/server.cfg
+CONFIG_FILE=/root/.config/Necesse/cfg/server.cfg
 
 # $1 targetkey
 # $2 replacementvalue
 replaceKey(){
-    if [ -v ${!1} ]
+    if ! [ -v ${1} ]
     then
-        echo "$1 is empty"
+        echo "$1 is unset"
     else
         echo "Setting $1 to ${!1}"
         sed -i "s/\($1 *= *\).*\/\//\1${!1}, \/\//" $CONFIG_FILE
