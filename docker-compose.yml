@@ -11,9 +11,9 @@ services:
     ports:
       - 14159:14159/udp
     volumes:
-      - ./server.cfg:~/.config/Necesse/cfg/server.cfg
-      - ./saves:~/.config/Necesse/saves
-      - ./logs:~/.config/Necesse/logs
+      - ./server.cfg:/root/.config/Necesse/cfg/server.cfg
+      - ./saves:/root/.config/Necesse/saves
+      - ./logs:/root/.config/Necesse/logs
     environment:
       - world=myNewWorld
       - port=14159
