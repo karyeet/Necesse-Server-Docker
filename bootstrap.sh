@@ -2,6 +2,9 @@
 
 
 CONFIG_FILE=/root/.config/Necesse/cfg/server.cfg
+COPY_CONFIG=/root/serverCopy.cfg
+
+cp $CONFIG_FILE $COPY_CONFIG
 
 # $1 targetkey
 # $2 replacementvalue
@@ -11,7 +14,7 @@ replaceKey(){
         echo "$1 is unset"
     else
         echo "Setting $1 to ${!1}"
-        sed -ic "s/\($1 *= *\).*\/\//\1${!1}, \/\//" $CONFIG_FILE
+        sed -ic "s/\($1 *= *\).*\/\//\1${!1}, \/\//" $COPY_CONFIG
     fi
 }
 
@@ -28,5 +31,7 @@ replaceKey "language" $language
 replaceKey "jobSearchRange" $jobSearchRange
 replaceKey "zipSaves" $zipSaves
 replaceKey "MOTD" $MOTD
+
+cp $COPY_CONFIG $CONFIG_FILE 
 
 /necesse-server/StartServer-nogui.sh -world $world
