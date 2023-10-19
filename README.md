@@ -3,8 +3,33 @@
 
 Multiarch image: [karyeet/necesse-server-docker:main](https://hub.docker.com/repository/docker/karyeet/necesse-server-docker/general)
 
-TODO:
-- Support server config with env
-- Document how to load your own worlds
-- Document how to save world
-- docker-compose.yml
+Environment variables can be set in the docker-compose.yml file.
+ENV variables in the compose file take precedent.
+If you remove the variable from the compose file, you may edit it from the server.cfg.
+
+## WARNING:
+### Stopping the container without saving will result in data loss.
+The necesse server jar does not listen for SIGTERM and the autosave is not often enough.
+This is something I am looking into.
+
+## Saving
+The server will save to ./saves
+
+## Importing worlds
+You can import a world by putting the .zip in ./saves.
+
+I recommend making a backup of your world outside of that directory.
+
+## Install
+
+1. `git clone https://github.com/karyeet/necesse-server-docker `
+
+2. `cd ./necesse-server-docker`
+
+3. `sudo docker compose up -d`
+
+To send commands to the server:
+
+`sudo docker attach necesse-server`
+
+
