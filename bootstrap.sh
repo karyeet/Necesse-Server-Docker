@@ -35,4 +35,13 @@ replaceKey "MOTD" $MOTD
 cp $COPY_CONFIG $CONFIG_FILE 
 
 cd "$(dirname "$0")"
-exec /necesse-server/jre/bin/java -jar Server.jar -nogui $world
+/necesse-server/jre/bin/java -jar Server.jar -nogui -world $world &
+
+java_process_pid=$!
+
+terminate() {
+  echo "Received SIGTERM signal. Sending 'exit' to the Java program's stdin..."
+  echo "exit" > /proc/$java_process_pid/fd/0
+}
+trap 'terminate' SIGTERM
+wait $java_process_pid
