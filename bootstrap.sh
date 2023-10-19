@@ -34,4 +34,4 @@ replaceKey "MOTD" $MOTD
 
 cp $COPY_CONFIG $CONFIG_FILE 
 
-/necesse-server/StartServer-nogui.sh -world $world
+exec /necesse-server/StartServer-nogui.sh -world $world
