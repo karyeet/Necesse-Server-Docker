@@ -11,7 +11,7 @@ replaceKey(){
         echo "$1 is unset"
     else
         echo "Setting $1 to ${!1}"
-        sed -i "s/\($1 *= *\).*\/\//\1${!1}, \/\//" $CONFIG_FILE
+        sed -ic "s/\($1 *= *\).*\/\//\1${!1}, \/\//" $CONFIG_FILE
     fi
 }
 
