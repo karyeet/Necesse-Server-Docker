@@ -9,8 +9,14 @@ If you remove the variable from the compose file, you may edit it from the serve
 
 ## WARNING:
 ### Stopping the container without saving will result in data loss.
-The necesse server jar does not listen for SIGTERM and the autosave is not often enough.
-This is something I am looking into.
+- The necesse server jar does not listen for SIGTERM
+
+Solutions:
+- The autosave is every 60 seconds (extracted from Server.jar), so wait 60 seconds.
+- Attach to the container and send "save".
+
+
+I am looking for a way to send "save" and "exit" automatically.
 
 ## Saving
 The server will save to ./saves
