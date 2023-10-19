@@ -1,0 +1,29 @@
+version: "3"
+
+# the port used in ports must match the port specified in env
+# changes to environment variables will take precendent over the server.cfg and must be defined
+# a description of the environemnt variables is in the README.md and server.cfg
+
+services:
+  necesse-server:
+    container_name: necesse_server
+    image: karyeet/necesse-server-docker:main
+    ports:
+      - 14159:14159/udp
+    volumes:
+      - ./server.cfg:~/.config/Necesse/cfg/server.cfg
+      - ./saves:~/.config/Necesse/saves
+      - ./logs:~/.config/Necesse/logs
+    environment:
+      - world=myNewWorld
+      - port=14159
+      - slots=10 
+      - password=
+      - maxClientLatencySeconds=30
+      - pauseWhenEmpty=true
+      - giveClientsPower=true
+      - logging=true
+      - language=en
+      - jobSearchRange=100
+      - zipSaves=true
+      - MOTD=
