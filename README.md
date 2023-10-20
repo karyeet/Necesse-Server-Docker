@@ -9,7 +9,7 @@ If you remove the variable from the compose file, you may edit it from the serve
 
 ## WARNING:
 ### Stopping the container without saving will result in data loss.
-- The necesse server jar does not listen for SIGTERM
+I can't figure out how to send "save" & exit in sh, so I will likely create a different bootstrap soon.
 
 Solutions:
 - The autosave is every 60 seconds (extracted from Server.jar), so wait 60 seconds.
