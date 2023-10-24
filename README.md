@@ -32,4 +32,11 @@ To send commands to the server:
 
 `sudo docker attach necesse-server`
 
+## Configure
+
+- You may set the environment variables in the docker-compose.yml file.
+- You may also remove an environment variable from the docker-compose.yml file and edit it directly in the server.cfg 
+
+
+
 
