@@ -12,4 +12,4 @@ COPY ./necesse-wrapper.js /necesse-server
 
 RUN chmod -R +x /necesse-server
 
-CMD node /necesse-server/necesse-wrapper.js
+ENTRYPOINT ["node", "/necesse-server/necesse-wrapper.js"]
