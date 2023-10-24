@@ -37,10 +37,10 @@ necesse_server.stderr.pipe(process.stderr)
 
 
 function gracefulShutdown() {
-
-    console.log("Attempting to save and exit necesse...")
-    necesse_server.stdin.write("exit\n");
-
+    if(isServerUp){
+        console.log("Attempting to save and exit necesse...")
+        necesse_server.stdin.write("exit\n");
+    }
 }
 
 process.once('SIGTERM', () => {
