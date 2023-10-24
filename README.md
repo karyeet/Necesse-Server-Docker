@@ -8,15 +8,9 @@ ENV variables in the compose file take precedent.
 If you remove the variable from the compose file, you may edit it from the server.cfg.
 
 ## WARNING:
-### Stopping the container without saving will result in data loss.
-I can't figure out how to send "save" & exit in sh, so I will likely create a different bootstrap soon.
+### This image is experimental.
+The image will now save and gracefully exit on docker stop and should be safe for use. However, it has not been thourougly tested.
 
-Solutions:
-- The autosave is every 60 seconds (extracted from Server.jar), so wait 60 seconds.
-- Attach to the container and send "save".
-
-
-I am looking for a way to send "save" and "exit" automatically.
 
 ## Saving
 The server will save to ./saves
