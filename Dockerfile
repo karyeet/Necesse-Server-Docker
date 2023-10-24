@@ -6,6 +6,8 @@ LABEL maintainer="https://github.com/karyeet"
 
 COPY ./necesse-server /necesse-server
 
+COPY ./bootstrap.sh /necesse-server
+
 COPY ./necesse-wrapper.js /necesse-server
 
 CMD chmod -R +x /necesse-server &&\

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 CONFIG_FILE=/root/.config/Necesse/cfg/server.cfg
 COPY_CONFIG=/root/serverCopy.cfg
 
@@ -33,5 +32,3 @@ replaceKey "zipSaves" $zipSaves
 replaceKey "MOTD" $MOTD
 
 cp $COPY_CONFIG $CONFIG_FILE 
-
-exec /necesse-server/StartServer-nogui.sh -world $world

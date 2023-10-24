@@ -1,6 +1,10 @@
-const spawn = require("child_process").spawn;
+const {spawn} = require("child_process");
+
+// set config using boostrap.sh
+spawn("/bin/bash", ["/necesse-server/boostrap.sh"], { stdio: "inherit" })
 
 // start server
+
 const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world], { detached: true })
 
 // set encoding
