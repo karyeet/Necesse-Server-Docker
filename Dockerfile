@@ -1,6 +1,6 @@
 ARG JAVAPLATFORM
 
-FROM --platform=$JAVAPLATFORM ubuntu:22.04
+FROM --platform=$JAVAPLATFORM node:21-bullseye-slim
 
 LABEL maintainer="https://github.com/karyeet"
 
@@ -8,5 +8,8 @@ COPY ./necesse-server /necesse-server
 
 COPY ./bootstrap.sh /necesse-server
 
-CMD chmod -R +x /necesse-server &&\
-    /bin/bash /necesse-server/bootstrap.sh
+COPY ./necesse-wrapper.js /necesse-server
+
+RUN chmod -R +x /necesse-server
+
+ENTRYPOINT ["node", "/necesse-server/necesse-wrapper.js"]
