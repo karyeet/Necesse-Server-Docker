@@ -10,5 +10,6 @@ COPY ./bootstrap.sh /necesse-server
 
 COPY ./necesse-wrapper.js /necesse-server
 
-CMD chmod -R +x /necesse-server &&\
-    node /necesse-server/necesse-wrapper.js
+RUN chmod -R +x /necesse-server
+
+CMD node /necesse-server/necesse-wrapper.js
