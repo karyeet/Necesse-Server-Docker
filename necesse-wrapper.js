@@ -1,7 +1,7 @@
 const {spawn} = require("child_process");
 
 // set config using boostrap.sh
-spawn("/bin/bash", ["/necesse-server/boostrap.sh"], { stdio: "inherit" })
+spawn("/bin/bash", ["/necesse-server/bootstrap.sh"], { stdio: "inherit" })
 
 // start server
 
