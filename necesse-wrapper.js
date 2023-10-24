@@ -1,9 +1,7 @@
-const { setTimeout } = require("timers/promises");
-
 const spawn = require("child_process").spawn;
 
 // start server
-const necesse_server = spawn("./jre/bin/java", ["-jar", "Server.jar", "-nogui"], { detached: true })
+const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui"], { detached: true })
 
 // set encoding
 necesse_server.stdout.setEncoding('utf8');
