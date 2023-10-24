@@ -1,7 +1,7 @@
 const spawn = require("child_process").spawn;
 
 // start server
-const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui"], { detached: true })
+const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world], { detached: true })
 
 // set encoding
 necesse_server.stdout.setEncoding('utf8');
@@ -35,7 +35,7 @@ necesse_server.stderr.pipe(process.stderr)
 
 
 function gracefulShutdown() {
-    if(isServerUp){
+    if (isServerUp) {
         console.log("Attempting to save and exit necesse...")
         necesse_server.stdin.write("exit\n");
     }
