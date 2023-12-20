@@ -17,11 +17,18 @@ Multiarch image: [karyeet/necesse-server-docker:main](https://hub.docker.com/rep
 
 3. `sudo docker compose up -d`
 
-To send commands to the server:
+## Sending Commands and Getting Logs
 
+### To send commands:
 `sudo docker attach necesse_server`
-
 To detatch, hit ctrl+p then ctrl+q
+
+### To get logs:
+Any of these commands will work:
+1. `sudo docker compose logs` inside the `necesse-server-docker` folder
+2. `sudo docker logs necesse_server`
+3. To follow logs (view live): `docker logs --follow necesse_server`
+
 
 ## Configure
 
