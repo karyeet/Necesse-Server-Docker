@@ -14,6 +14,7 @@ services:
       - 14159:14159/udp
     volumes:
       - ./server.cfg:/root/.config/Necesse/cfg/server.cfg
+      - ./banned.cfg:/root/.config/Necesse/cfg/banned.cfg
       - ./saves:/root/.config/Necesse/saves
       - ./logs:/root/.config/Necesse/logs
     environment:
