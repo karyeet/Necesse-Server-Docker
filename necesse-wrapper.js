@@ -46,7 +46,6 @@ editConfigFile(configFilePath, "zipSaves", process.env.zipSaves)
 editConfigFile(configFilePath, "MOTD", process.env.MOTD)
 
 // start server
-
 const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world], { detached: true })
 
 // set encoding
@@ -76,9 +75,6 @@ necesse_server.stdout.pipe(process.stdout)
 // pipe necesse stderr to process
 necesse_server.stderr.pipe(process.stderr)
 
-// child.stdin.write("console.log('Hello from PhantomJS')\n");
-// catch terminations
-
 
 function gracefulShutdown() {
     if (isServerUp) {
@@ -87,6 +83,7 @@ function gracefulShutdown() {
     }
 }
 
+// catch terminations
 process.once('SIGTERM', () => {
     console.info('SIGTERM signal received.');
     gracefulShutdown()
