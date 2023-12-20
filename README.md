@@ -1,24 +1,13 @@
 # necesse-docker
- amd64, arm64/aarch64 support for the necesse server in a container
+ 
+ ## Features:
+ - amd64, arm64/aarch64 support for the necesse server
+ - Gracefully shutdown necesse server and save when container is stopped
+ - Send commands to the server
+ - Get logs from the server
+ - Multiple ways to set the config
 
 Multiarch image: [karyeet/necesse-server-docker:main](https://hub.docker.com/repository/docker/karyeet/necesse-server-docker/general)
-
-Environment variables can be set in the docker-compose.yml file.
-ENV variables in the compose file take precedent.
-If you remove the variable from the compose file, you may edit it from the server.cfg.
-
-## WARNING:
-### This image is experimental.
-The image will now save and gracefully exit on docker stop and should be safe for use. However, it has not been thourougly tested.
-
-
-## Saving
-The server will save to ./saves
-
-## Importing worlds
-You can import a world by putting the .zip in ./saves.
-
-I recommend making a backup of your world outside of that directory.
 
 ## Install
 
@@ -37,8 +26,20 @@ To detatch, hit ctrl+p then ctrl+q
 ## Configure
 
 - You may set the environment variables in the docker-compose.yml file.
-- You may also remove an environment variable from the docker-compose.yml file and edit it directly in the server.cfg 
+- You may also remove an environment variable from the docker-compose.yml file and edit it directly in the server.cfg
+- By default, the server uses port 14159/udp.
+  - To change the port to, for example, port 1738 you must change the `14159:14159/udp` in the docker-compose.yml to `1738:14159/udp`.
+- Explanations to all the configuration options can be found in the server.cfg file.
 
+## Saving
+The server will save worlds to the `saves` folder.
+Logs are in the `logs` folder.
 
+## Importing worlds
+You can import a world by copying the .zip into ./saves folder and changing `world=myNewWorld` in the docker-compose.yml to the name of the .zip, whichout the .zip part.
+
+Ex: If the file is called coolestNecesseWorld.zip, then change `world=myNewWorld` to `world=coolestNecesseWorld`.
+
+I recommend periodically making a backup of your world outside of that directory.
 
 
