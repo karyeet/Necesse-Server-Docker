@@ -30,7 +30,9 @@ I recommend making a backup of your world outside of that directory.
 
 To send commands to the server:
 
-`sudo docker attach necesse-server`
+`sudo docker attach necesse_server`
+
+To detatch, hit ctrl+p then ctrl+q
 
 ## Configure
 
