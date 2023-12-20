@@ -27,6 +27,12 @@ services:
       - giveClientsPower=true
       - logging=true
       - language=en
+      - unloadLevelsCooldown=30
+      - worldBorderSize=-1
+      - droppedItemsLifeMinutes=0
+      - unloadSettlements = false
+      - maxSettlementsPerPlayer = -1
+      - maxSettlersPerSettlement = -1
       - jobSearchRange=100
       - zipSaves=true
       - MOTD=
