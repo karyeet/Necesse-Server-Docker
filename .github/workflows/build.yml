@@ -6,8 +6,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'node-wrapper'
-      - 'remove-bootstrapsh'
+      - 'build-12080883'
   release:
     types:
       - created
