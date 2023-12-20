@@ -1,7 +1,43 @@
 const {spawn} = require("child_process");
 
-// set config using boostrap.sh
-spawn("/bin/bash", ["/necesse-server/bootstrap.sh"], { stdio: "inherit" })
+const fs = require('fs');
+
+function editConfigFile(filePath, settingName, newValue) {
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading file:', err);
+      return;
+    }
+
+    // Define the regular expression pattern to match the setting and its value
+    const pattern = new RegExp(`(${settingName}\\s*=\\s*)([^,\\/\\s]*)`, 'g');
+
+    // Replace the old value with the new value
+    const newData = data.replace(pattern, `$1${newValue}`);
+
+    // Write the modified content back to the file
+    fs.writeFile(filePath, newData, 'utf8', (err) => {
+      if (err) {
+        console.error('Error writing to file:', err);
+        return;
+      }
+      console.log(`Setting '${settingName}' updated to '${newValue}' in ${filePath}`);
+    });
+  });
+}
+
+const configFilePath = "/root/.config/Necesse/cfg/server.cfg"
+editConfigFile(configFilePath, "port", process.env.port)
+editConfigFile(configFilePath, "slots", process.env.slots)
+editConfigFile(configFilePath, "password", process.env.password)
+editConfigFile(configFilePath, "maxClientLatencySeconds", process.env.maxClientLatencySeconds)
+editConfigFile(configFilePath, "pauseWhenEmpty", process.env.pauseWhenEmpty)
+editConfigFile(configFilePath, "giveClientsPower", process.env.giveClientsPower)
+editConfigFile(configFilePath, "logging", process.env.logging)
+editConfigFile(configFilePath, "language", process.env.language)
+editConfigFile(configFilePath, "jobSearchRange", process.env.jobSearchRange)
+editConfigFile(configFilePath, "zipSaves", process.env.zipSaves)
+editConfigFile(configFilePath, "MOTD", process.env.MOTD)
 
 // start server
 
