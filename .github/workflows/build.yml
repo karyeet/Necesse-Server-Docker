@@ -39,9 +39,9 @@ jobs:
 
       - name: Fetch necesse server
         run: |
-          wget https://necessegame.com/wp-content/uploads/2023/08/necesse-server-linux64-0-22-1-12080883.zip
-          unzip necesse-server-linux64-0-22-1-12080883.zip
-          mv necesse-server-0-22-1-12080883 necesse-server
+          wget https://necessegame.com/wp-content/uploads/2023/12/necesse-server-linux64-0-23-0-12963309.zip
+          unzip necesse-server-linux64-0-23-0-12963309.zip
+          mv necesse-server-0-23-0-12963309 necesse-server
         
       - name: Fetch jre and replace runtime for arm64
         if: matrix.platform == 'arm64'
