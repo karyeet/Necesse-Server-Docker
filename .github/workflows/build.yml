@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'build-12963309'
+      - 'build-13035760'
   release:
     types:
       - created
@@ -38,7 +38,7 @@ jobs:
 
       - name: Fetch necesse server
         run: |
-          wget https://necessegame.com/wp-content/uploads/2023/12/necesse-server-linux64-0-23-0-12963309.zip
+          wget https://necessegame.com/wp-content/uploads/2023/12/necesse-server-linux64-0-23-1-13035760.zip
           unzip necesse-server-linux64-0-23-0-12963309.zip
           mv necesse-server-0-23-0-12963309 necesse-server
         
