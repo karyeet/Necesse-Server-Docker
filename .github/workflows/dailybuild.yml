@@ -75,13 +75,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Create and push multiarch image by build num
+      - name: Create and push multiarch image
         run: |
-              docker buildx imagetools create -t karyeet/necesse-server-docker:${NBuildNum} \
-              karyeet/necesse-server-docker:arm64-${NBuildNum} \
-              karyeet/necesse-server-docker:amd64-${NBuildNum}
-      - name: Create and push multiarch to latest
-        run: |
-              docker buildx imagetools create -t karyeet/necesse-server-docker:latest \
-              karyeet/necesse-server-docker:arm64-${NBuildNum} \
-              karyeet/necesse-server-docker:amd64-${NBuildNum}
+              docker buildx imagetools create -t karyeet/necesse-server-docker:${{ env.NBuildNum }} -t karyeet/necesse-server-docker:latest \
+              karyeet/necesse-server-docker:arm64-${{ env.NBuildNum }} \
+              karyeet/necesse-server-docker:amd64-${{ env.NBuildNum }}
