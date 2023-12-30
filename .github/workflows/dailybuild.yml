@@ -39,7 +39,6 @@ jobs:
         run: |
           NURL=$(curl -s https://necessegame.com/server/ | grep -Eo 'https:\/\/necessegame\.com\/wp-content\/uploads\/20[0-9][0-9]\/[0-9][0-9]\/necesse-server-linux64-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-([0-9]+)\.zip' | head -n 1)
           NBuildNum=$(echo $NURL | grep -Eo '\-[0-9]+\.' | grep -Eo '[0-9]+')
-          echo "NBuildNum=$NBuildNum" >> $GITHUB_ENV
           wget $NURL
           unzip necesse-server-linux64-*
           rm necesse-server-linux64-*
@@ -77,6 +76,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Create and push multiarch image
         run: |
+              NURL=$(curl -s https://necessegame.com/server/ | grep -Eo 'https:\/\/necessegame\.com\/wp-content\/uploads\/20[0-9][0-9]\/[0-9][0-9]\/necesse-server-linux64-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-([0-9]+)\.zip' | head -n 1)
+              NBuildNum=$(echo $NURL | grep -Eo '\-[0-9]+\.' | grep -Eo '[0-9]+')
               docker buildx imagetools create -t karyeet/necesse-server-docker:${{ env.NBuildNum }} -t karyeet/necesse-server-docker:latest \
               karyeet/necesse-server-docker:arm64-${{ env.NBuildNum }} \
               karyeet/necesse-server-docker:amd64-${{ env.NBuildNum }}
