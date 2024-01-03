@@ -17,6 +17,7 @@ services:
       - ./banned.cfg:/root/.config/Necesse/cfg/banned.cfg
       - ./saves:/root/.config/Necesse/saves
       - ./logs:/root/.config/Necesse/logs
+      - ./mods:/root/.config/Necesse/mods
     environment:
       - world=myNewWorld
       - port=14159
