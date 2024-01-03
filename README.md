@@ -44,6 +44,15 @@ Any of these commands will work:
 The server will save worlds to the `saves` folder.
 Logs are in the `logs` folder.
 
+## Mods
+1. Run the server once to create file structure: 
+    1. `sudo docker compose up -d`
+    2. count to 3
+    3. `sudo docker compose down`
+2. Copy mod .jar into the mod folder created in the `necesse-server-docker` folder.
+3. Start server: `sudo docker compose up -d`
+
+
 ## Importing worlds
 You can import a world by copying the .zip into ./saves folder and changing `world=myNewWorld` in the docker-compose.yml to the name of the .zip, whichout the .zip part.
 
