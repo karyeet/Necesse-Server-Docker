@@ -7,7 +7,7 @@ version: "3"
 services:
   necesse-server:
     container_name: necesse_server
-    image: karyeet/necesse-server-docker:main
+    image: karyeet/necesse-server-docker:latest
     stdin_open: true
     tty: true
     ports:
