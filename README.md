@@ -9,7 +9,7 @@
  - [NEW] Daily image builds to latest necesse server version
       >To update, just pull the latest image (sudo docker compose pull) and recreate your container.
 
-Multiarch image: [karyeet/necesse-server-docker:latest](https://hub.docker.com/repository/docker/karyeet/necesse-server-docker/general)
+Multiarch image: [karyeet/necesse-server-docker:latest](https://hub.docker.com/r/karyeet/necesse-server-docker)
 
 ## Install
 
