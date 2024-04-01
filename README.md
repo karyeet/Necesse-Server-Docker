@@ -15,9 +15,9 @@ Multiarch image: [karyeet/necesse-server-docker:latest](https://hub.docker.com/r
 
 1. `git clone https://github.com/karyeet/necesse-server-docker `
 
-2. `cd ./necesse-server-docker`
-
-3. `sudo docker compose up -d`
+## Start
+1. `cd ./necesse-server-docker`
+2. `sudo docker compose up -d`
 
 ## Sending Commands and Getting Logs
 
