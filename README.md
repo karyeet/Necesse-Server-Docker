@@ -8,6 +8,7 @@
  - Multiple ways to set the config
  - [NEW] Daily image builds to latest necesse server version
       >To update, just pull the latest image (sudo docker compose pull) and recreate your container.
+ - Complete [docker-compose.yml](https://github.com/karyeet/Necesse-Server-Docker/blob/main/docker-compose.yml) file provided
 
 Multiarch image: [karyeet/necesse-server-docker:latest](https://hub.docker.com/r/karyeet/necesse-server-docker)
 
