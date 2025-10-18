@@ -1,6 +1,6 @@
 const {spawn} = require("child_process");
-
 const fs = require('fs');
+const os = require('os');
 
 function editConfigFile(filePath, settingName, newValue) {
   fs.readFile(filePath, 'utf8', (err, data) => {
@@ -8,13 +8,10 @@ function editConfigFile(filePath, settingName, newValue) {
       console.error('Error reading file:', err);
       return;
     }
-
     // Define the regular expression pattern to match the setting and its value
     const pattern = new RegExp(`(${settingName}\\s*=\\s*)([^,\\/\\s]*)`, 'g');
-
     // Replace the old value with the new value
     const newData = data.replace(pattern, `$1${newValue}`);
-
     // Write the modified content back to the file
     fs.writeFile(filePath, newData, 'utf8', (err) => {
       if (err) {
@@ -45,13 +42,45 @@ editConfigFile(configFilePath, "jobSearchRange", process.env.jobSearchRange)
 editConfigFile(configFilePath, "zipSaves", process.env.zipSaves)
 editConfigFile(configFilePath, "MOTD", process.env.MOTD)
 
+// Detect architecture
+const arch = os.arch();
+console.log(`Detected architecture: ${arch}`);
+
+// Determine JRE path based on architecture
+let jrePath;
+if (arch === 'arm64' || arch === 'aarch64') {
+  jrePath = "/necesse-server/jre-arm64/bin/java";
+} else {
+  jrePath = "/necesse-server/jre/bin/java";
+}
+
+console.log(`Using JRE at: ${jrePath}`);
+
+// Build JVM arguments with memory options
+const jvmArgs = [];
+
+// Add memory settings if provided
+const minMemory = process.env.JVM_MIN_MEMORY || "512M";
+const maxMemory = process.env.JVM_MAX_MEMORY || "2G";
+jvmArgs.push(`-Xms${minMemory}`);
+jvmArgs.push(`-Xmx${maxMemory}`);
+
+// Add any additional JVM options
+if (process.env.JVM_OPTS) {
+  const additionalOpts = process.env.JVM_OPTS.split(' ').filter(opt => opt.trim() !== '');
+  jvmArgs.push(...additionalOpts);
+}
+
+// Add the JAR file and server arguments
+jvmArgs.push("-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world);
+
+console.log(`Starting server with JVM args: ${jvmArgs.join(' ')}`);
+
 // start server
-const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world], { detached: true })
+const necesse_server = spawn(jrePath, jvmArgs, { detached: true })
 
 // set encoding
 necesse_server.stdout.setEncoding('utf8');
-
-
 necesse_server.on('close', (code) => {
     console.log(`Child process exited with code ${code}`);
 });
@@ -68,13 +97,13 @@ necesse_server.stdout.on("data", (message) => {
         console.log("Server gracefully shutdown.")
     }
 })
+
 // pipe stdin to necesse
 process.stdin.pipe(necesse_server.stdin)
 // pipe necesse stdout to process
 necesse_server.stdout.pipe(process.stdout)
 // pipe necesse stderr to process
 necesse_server.stderr.pipe(process.stderr)
-
 
 function gracefulShutdown() {
     if (isServerUp) {
@@ -88,9 +117,7 @@ process.once('SIGTERM', () => {
     console.info('SIGTERM signal received.');
     gracefulShutdown()
 });
-
 process.once('SIGINT', () => {
     console.info('SIGINT signal received.');
     gracefulShutdown()
 });
-
