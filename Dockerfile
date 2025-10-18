@@ -1,6 +1,6 @@
 ARG TARGETPLATFORM
 FROM --platform=$TARGETPLATFORM node:21-bullseye-slim
-LABEL maintainer="https://github.com/sdedovic"
+LABEL maintainer="https://github.com/karyeet"
 
 # Install wget and ca-certificates for downloading Temurin
 RUN apt-get update && \
