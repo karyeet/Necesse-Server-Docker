@@ -74,6 +74,11 @@ if (process.env.JVM_OPTS) {
 // Add the JAR file and server arguments
 jvmArgs.push("-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world);
 
+// Add owner if specified
+if (process.env.owner) {
+  jvmArgs.push("-owner", process.env.owner);
+}
+
 console.log(`Starting server with JVM args: ${jvmArgs.join(' ')}`);
 
 // start server
