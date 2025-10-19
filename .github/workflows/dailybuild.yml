@@ -53,6 +53,25 @@ jobs:
           wget https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1%2B1/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.8.1_1.tar.gz
           tar -xf OpenJDK17U-jre_aarch64_linux_hotspot_17.0.8.1_1.tar.gz
           cp -r jdk-17.0.8.1+1-jre/* necesse-server/jre/
+      
+      - name: Check LWJGL version and fetch natives for arm64 LWJGL
+        if: matrix.platform == 'arm64'
+        run: |
+          cd necesse-server/lib
+          version=$(ls | grep -oE 'lwjgl-[0-9]+\.[0-9]+\.[0-9]+\.jar' | sed -E 's/lwjgl-([0-9]+\.[0-9]+\.[0-9]+)\.jar/\1/')
+          echo "LWJGL version: $version"
+          base="https://build.lwjgl.org/release/${version}/bin"
+          urls=(
+            "${base}/lwjgl-glfw/lwjgl-glfw-natives-linux-arm64.jar"
+            "${base}/lwjgl-openal/lwjgl-openal-natives-linux-arm64.jar"
+            "${base}/lwjgl-opengl/lwjgl-opengl-natives-linux-arm64.jar"
+            "${base}/lwjgl-stb/lwjgl-stb-natives-linux-arm64.jar"
+            "${base}/lwjgl/lwjgl-natives-linux-arm64.jar"
+          )
+          for url in "${urls[@]}"; do
+            echo "Fetching $url"
+            wget "$url"
+          done
 
       - name: Build and push
         uses: docker/build-push-action@v2
