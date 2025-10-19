@@ -37,3 +37,4 @@ services:
       - jobSearchRange=100
       - zipSaves=true
       - MOTD=
+#      - JVM_OPTS=-Xms1G -Xmx2G

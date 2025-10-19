@@ -45,8 +45,15 @@ editConfigFile(configFilePath, "jobSearchRange", process.env.jobSearchRange)
 editConfigFile(configFilePath, "zipSaves", process.env.zipSaves)
 editConfigFile(configFilePath, "MOTD", process.env.MOTD)
 
+// If JVM_OPTS is set, use them
+let jvm_opts = ""
+console.log("JVM_OPTS: " + process.env.JVM_OPTS)
+if (process.env.JVM_OPTS != undefined) {
+    jvm_opts = process.env.JVM_OPTS
+}
+
 // start server
-const necesse_server = spawn("/necesse-server/jre/bin/java", ["-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world], { detached: true })
+const necesse_server = spawn("/necesse-server/jre/bin/java",  [[jvm_opts, "-jar", "/necesse-server/Server.jar", "-nogui", "-world", process.env.world].join(" ")], { detached: true, shell: true })
 
 // set encoding
 necesse_server.stdout.setEncoding('utf8');
