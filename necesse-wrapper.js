@@ -16,13 +16,13 @@ function editConfigFile(filePath, settingName, newValue) {
     const newData = data.replace(pattern, `$1${newValue}`);
 
     // Write the modified content back to the file
-    fs.writeFile(filePath, newData, 'utf8', (err) => {
-      if (err) {
-        console.error('Error writing to file:', err);
-        return;
-      }
+    try{
+      fs.writeFileSync(filePath, newData, { encoding: 'utf8' });
       console.log(`Setting '${settingName}' updated to '${newValue}' in ${filePath}`);
-    });
+    } catch (err) {
+      console.error('Error writing to file:', err);
+      return; 
+    }
   });
 }
 
