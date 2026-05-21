@@ -38,10 +38,10 @@ jobs:
 
       - name: Scrape latest necesse server download url, download, unzip, and rename
         run: |
-          NURL=$(curl -s https://necessegame.com/server/ | grep -Eo 'content\/server\/[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+\/necesse-server-linux64-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+.zip' | echo "$(echo 'https://necessegame.com/')$(head -n 1)")
-          NBuildNum=$(echo $NURL | grep -Eo '\-[0-9]+\.' | grep -Eo '[0-9]+')
+          NURL=$(curl -s https://necessegame.com/server/ | grep -Eo 'server\/[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+\/necesse-server-linux64-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+.zip\?[a-zA-Z0-9%\=&_;-]*' | sed 's/&amp;/\&/g' | echo "$(echo 'https://necesse-website.s3.eu-central-1.amazonaws.com/')$(head -n 1)")
+          NBuildNum=$(echo "$NURL" | sed -E 's/.*-([0-9]+)\.zip.*/\1/')
           echo "NBuildNum=$NBuildNum" >> $GITHUB_ENV
-          wget $NURL
+          wget "$NURL"
           unzip necesse-server-linux64-*
           rm necesse-server-linux64-*
           mv necesse-server-* necesse-server
@@ -97,8 +97,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Create and push multiarch image
         run: |
-              NURL=$(curl -s https://necessegame.com/server/ | grep -Eo 'content\/server\/[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+\/necesse-server-linux64-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+.zip' | echo "$(echo 'https://necessegame.com/')$(head -n 1)")
-              NBuildNum=$(echo $NURL | grep -Eo '\-[0-9]+\.' | grep -Eo '[0-9]+')
+              NURL=$(curl -s https://necessegame.com/server/ | grep -Eo 'server\/[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+\/necesse-server-linux64-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]?[0-9]-[0-9]+.zip\?[a-zA-Z0-9%\=&_;-]*' | sed 's/&amp;/\&/g' | echo "$(echo 'https://necesse-website.s3.eu-central-1.amazonaws.com/')$(head -n 1)")
+              NBuildNum=$(echo "$NURL" | sed -E 's/.*-([0-9]+)\.zip.*/\1/')
               docker buildx imagetools create -t karyeet/necesse-server-docker:$NBuildNum -t karyeet/necesse-server-docker:latest \
               karyeet/necesse-server-docker:arm64-$NBuildNum \
               karyeet/necesse-server-docker:amd64-$NBuildNum
